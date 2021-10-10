@@ -1,4 +1,4 @@
-# Merge QA PDF files in to a book
+# Merge QA documents into one PDF file
 
 This project merges multiple QA documents into one PDF file, and each QA document consists of two PDF files (Q and A respectively).
 

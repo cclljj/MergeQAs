@@ -19,14 +19,18 @@ def lookup_table(fname):
 	except IOError:
 		print("Could not read file:", fname)
 
-def merge_QA(output_file, blank_file, q_folder, a_folder):
+def merge_QA(output_file, q_folder, a_folder):
 	p = 0
 	merger = PdfFileMerger()
+
+	output = PdfFileWriter()
+	output.addBlankPage(width=595, height=842)
+	output.write(open("/tmp/blank.pdf", 'wb'))
 
 	for C in QA:
 		if p%2==0:
 			p = p + 1
-			merger.append(blank_file)
+			merger.append("/tmp/blank.pdf")
 
 		packet = io.BytesIO()
 		can = canvas.Canvas(packet)
@@ -64,17 +68,14 @@ if __name__ == "__main__":
 
 	# Add more options if you like
 	parser.add_argument("-Q", "--Q_Folder", dest="q_folder", default="./PDF-Q/",
-				help="folder to store Questions")
+				help="folder to store Questions, default= ./PDF-Q/")
 	parser.add_argument("-A", "--A_Folder", dest="a_folder", default="./PDF-A/",
-				help="folder to store Answers")
+				help="folder to store Answers, default= ./PDF-A/")
 	parser.add_argument("-o", "--output", dest="output_filename", default="output.pdf",
-				help="write merged PDF to FILE", metavar="FILE")
-	parser.add_argument("-b", "--blank", dest="blank_filename", default="blank.pdf",
-				help="path to blank PDF file", metavar="FILE")
+				help="write merged PDF to FILE, default=output.pdf", metavar="FILE")
 	parser.add_argument("input_filename", help="the lookup table to merge PDF files")
 
 	args = parser.parse_args()
-	print(args.input_filename, args.blank_filename, args.output_filename)
 
 	lookup_table(args.input_filename)
-	merge_QA(args.output_filename, args.blank_filename, args.q_folder, args.a_folder)
+	merge_QA(args.output_filename, args.q_folder, args.a_folder)

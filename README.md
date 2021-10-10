@@ -1,10 +1,10 @@
 # Merge QA PDF files in to a book
 
-This project will merge multiple QA documents into one PDF file, and each QA document consists of two PDF files (Q and A respectiely). 
+This project merges multiple QA documents into one PDF file, and each QA document consists of two PDF files (Q and A respectively).
 
-In the outcome PDF file, each QA session will take place staring on the even number page, and one blank page will be inserted into the document when necessary. 
+In the resulting PDF file, each QA session will be conducted on even-numbered pages, and a blank page will be inserted in the document if necessary.
 
-The program is implemented using Python 3, and it is required to install PyPDF2 and reportlab packages to run this program.
+The program is implemented using Python 3, and PyPDF2 and reportlab packages need to be installed to run the program.
 
 ```
 sudo pip3 install PyPDF2 reportlab

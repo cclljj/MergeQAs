@@ -14,8 +14,8 @@ def lookup_table(fname):
 	try:
 		with open(fname) as f:
 			for line in f:
-				A = re.split('\t|,',line.rstrip())
-				QA[A[1]] = A[0]
+				items = re.split('\t|,',line.rstrip())
+				QA[items[0]] = items[1]
 	except IOError:
 		print("Could not read file:", fname)
 
@@ -34,29 +34,30 @@ def merge_QA(output_file, q_folder, a_folder):
 
 		packet = io.BytesIO()
 		can = canvas.Canvas(packet)
-		can.drawString(10, 820, "Final: "+C+"; Original: "+QA[C])
+		#can.drawString(10, 820, "Final: "+C+"; Original: "+QA[C])
+		can.drawString(10, 820, "Case #: "+C)
 		can.save()
 		packet.seek(0)
 
 		new_pdf = PdfFileReader(packet)
-		existing_pdf = PdfFileReader(open(q_folder+"/"+QA[C]+".pdf", "rb"))
+		existing_pdf = PdfFileReader(open(q_folder+"/"+C+"-Q.pdf", "rb"))
 		output = PdfFileWriter()
 		for i in range (0,existing_pdf.getNumPages(),1):
 			page = existing_pdf.getPage(i)
 			# add the "watermark" (which is the new pdf) on the existing page
 			page.mergePage(new_pdf.getPage(0))
 			output.addPage(existing_pdf.getPage(i))
-		outputStream = open("/tmp/"+QA[C]+".pdf", "wb")
+		outputStream = open("/tmp/"+C+"-Q.pdf", "wb")
 		output.write(outputStream)
 		outputStream.close()
 
-		inputStream = open("/tmp/"+QA[C]+".pdf",'rb')
+		inputStream = open("/tmp/"+C+"-Q.pdf",'rb')
 		p = p + PdfFileReader(inputStream).getNumPages()
 		inputStream.close()
-		merger.append("/tmp/"+QA[C]+".pdf")
+		merger.append("/tmp/"+C+"-Q.pdf")
 
-		p = p + PdfFileReader(open(a_folder+"/"+C+".pdf",'rb')).getNumPages()
-		merger.append(a_folder+"/"+C+".pdf")
+		p = p + PdfFileReader(open(a_folder+"/"+QA[C]+"-A.pdf",'rb')).getNumPages()
+		merger.append(a_folder+"/"+QA[C]+"-A.pdf")
 
 	merger.write(output_file)
 	merger.close()

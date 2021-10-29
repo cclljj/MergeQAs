@@ -61,20 +61,21 @@ def merge_QA(output_file, q_folder, a_folder):
 				# add the "watermark" (which is the new pdf) on the existing page
 				page.mergePage(new_pdf.getPage(0))
 				output.addPage(existing_pdf.getPage(i))
+
+			outputStream = open(str_TMP_Q, "wb")
+			output.write(outputStream)
+			outputStream.close()
+
+			if os.path.isfile(str_TMP_Q):
+				inputStream = open(str_TMP_Q,'rb')
+				p = p + PdfFileReader(inputStream).getNumPages()
+				inputStream.close()
+				merger.append(str_TMP_Q)
+			else:
+				print("Error - file missing: ", str_TMP_Q)
 		else:
 			print("Error - file missing: ", str_FILE_Q)
 
-		outputStream = open(str_TMP_Q, "wb")
-		output.write(outputStream)
-		outputStream.close()
-
-		if os.path.isfile(str_TMP_Q):
-			inputStream = open(str_TMP_Q,'rb')
-			p = p + PdfFileReader(inputStream).getNumPages()
-			inputStream.close()
-			merger.append(str_TMP_Q)
-		else:
-			print("Error - file missing: ", str_TMP_Q)
 
 		if os.path.isfile(str_FILE_A):
 			new_pdf = PdfFileReader(packet)
@@ -85,20 +86,21 @@ def merge_QA(output_file, q_folder, a_folder):
 				# add the "watermark" (which is the new pdf) on the existing page
 				page.mergePage(new_pdf.getPage(0))
 				output.addPage(existing_pdf.getPage(i))
+
+			outputStream = open(str_TMP_A, "wb")
+			output.write(outputStream)
+			outputStream.close()
+
+			if os.path.isfile(str_TMP_A):
+				inputStream = open(str_TMP_A,'rb')
+				p = p + PdfFileReader(inputStream).getNumPages()
+				inputStream.close()
+				merger.append(str_TMP_A)
+			else:
+				print("Error - file missing: ", str_TMP_A)
 		else:
 			print("Error - file missing: ", str_FILE_A)
 
-		outputStream = open(str_TMP_A, "wb")
-		output.write(outputStream)
-		outputStream.close()
-
-		if os.path.isfile(str_TMP_A):
-			inputStream = open(str_TMP_A,'rb')
-			p = p + PdfFileReader(inputStream).getNumPages()
-			inputStream.close()
-			merger.append(str_TMP_A)
-		else:
-			print("Error - file missing: ", str_TMP_A)
 
 
 	merger.write(output_file)

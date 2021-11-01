@@ -22,7 +22,7 @@ def lookup_table(fname):
 
 def merge_QA(output_file, q_folder, a_folder):
 	p = 0
-	merger = PdfFileMerger()
+	merger = PdfFileMerger(strict=False)
 
 	output = PdfFileWriter()
 	output.addBlankPage(width=595, height=842)
@@ -46,7 +46,7 @@ def merge_QA(output_file, q_folder, a_folder):
 		packet = io.BytesIO()
 		can = canvas.Canvas(packet)
 		can.setFont('Helvetica', 20)
-		can.drawString(10, 820, "#" + str(index) + ": " + C)
+		can.drawString(10, 820, "#" + str(index) + ": " + C + " (" + QA[C]+")")
 		#add two black rectangles on the two sides for quick indexing
 		can.rect(0,800-40*index10-40,5,40,fill=1,stroke=1)
 		can.rect(590,800-40*index10-40,5,40,fill=1,stroke=1)

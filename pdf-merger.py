@@ -34,6 +34,7 @@ def merge_QA(output_file, q_folder, a_folder):
 		index10 = ((index-1) // 10) % 10
 
 		str_FILE_Q = q_folder+"/"+C+"-Q.pdf"
+		str_FILE_Q = q_folder+"/"+QA[C]+"-Q.pdf"
 		str_FILE_A = a_folder+"/"+QA[C]+"-A.pdf"
 		str_TMP_Q = "/tmp/"+C+"-Q.pdf"
 		str_TMP_A = "/tmp/"+C+"-A.pdf"
@@ -112,10 +113,10 @@ if __name__ == "__main__":
 	parser = ArgumentParser()
 
 	# Add more options if you like
-	parser.add_argument("-Q", "--Q_Folder", dest="q_folder", default="./PDF-Q/",
-				help="folder to store Questions, default= ./PDF-Q/")
-	parser.add_argument("-A", "--A_Folder", dest="a_folder", default="./PDF-A/",
-				help="folder to store Answers, default= ./PDF-A/")
+	parser.add_argument("-Q", "--Q_Folder", dest="q_folder", default="./PDF/",
+				help="folder to store Questions, default= ./PDF/")
+	parser.add_argument("-A", "--A_Folder", dest="a_folder", default="./PDF/",
+				help="folder to store Answers, default= ./PDF/")
 	parser.add_argument("-o", "--output", dest="output_filename", default="output.pdf",
 				help="write merged PDF to FILE, default=output.pdf", metavar="FILE")
 	parser.add_argument("input_filename", help="the lookup table to merge PDF files")

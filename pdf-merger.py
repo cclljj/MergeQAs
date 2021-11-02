@@ -137,5 +137,5 @@ if __name__ == "__main__":
 
 	for lookup in LookupTables:
 		QA.clear()
-		lookup_table(lookup + ".csv")
-		merge_QA(lookup+".pdf", args.q_folder, args.a_folder)
+		lookup_table("input/" + lookup + ".csv")
+		merge_QA("output/" +lookup+".pdf", args.q_folder, args.a_folder)

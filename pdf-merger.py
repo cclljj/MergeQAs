@@ -22,6 +22,7 @@ def lookup_table(fname):
 
 def merge_QA(output_file, q_folder, a_folder):
 	p = 0
+	pp = 0
 	merger = PdfFileMerger(strict=False)
 
 	output = PdfFileWriter()
@@ -41,23 +42,25 @@ def merge_QA(output_file, q_folder, a_folder):
 
 		if p%2==0:
 			p = p + 1
+			pp = pp + 1
 			merger.append("/tmp/blank.pdf")
 
-		packet = io.BytesIO()
-		can = canvas.Canvas(packet)
-		can.setFont('Helvetica', 20)
-		can.drawString(10, 820, "#" + str(index) + ": " + C + " (" + QA[C]+")")
-		#add two black rectangles on the two sides for quick indexing
-		can.rect(0,800-40*index10-40,5,40,fill=1,stroke=1)
-		can.rect(590,800-40*index10-40,5,40,fill=1,stroke=1)
-		can.save()
-		packet.seek(0)
-
 		if os.path.isfile(str_FILE_Q):
-			new_pdf = PdfFileReader(packet)
 			existing_pdf = PdfFileReader(open(str_FILE_Q, "rb"))
 			output = PdfFileWriter()
 			for i in range (0,existing_pdf.getNumPages(),1):
+				pp = pp + 1
+				packet = io.BytesIO()
+				can = canvas.Canvas(packet)
+				can.setFont('Helvetica', 20)
+				can.drawString(10, 820, "#" + str(index) + ": " + C + " (" + QA[C]+")")
+				can.drawString(250, 20, str(pp))
+				#add two black rectangles on the two sides for quick indexing
+				can.rect(0,800-40*index10-40,5,40,fill=1,stroke=1)
+				can.rect(590,800-40*index10-40,5,40,fill=1,stroke=1)
+				can.save()
+				packet.seek(0)
+				new_pdf = PdfFileReader(packet)
 				page = existing_pdf.getPage(i)
 				# add the "watermark" (which is the new pdf) on the existing page
 				page.mergePage(new_pdf.getPage(0))
@@ -79,10 +82,21 @@ def merge_QA(output_file, q_folder, a_folder):
 
 
 		if os.path.isfile(str_FILE_A):
-			new_pdf = PdfFileReader(packet)
 			existing_pdf = PdfFileReader(open(str_FILE_A, "rb"))
 			output = PdfFileWriter()
 			for i in range (0,existing_pdf.getNumPages(),1):
+				pp = pp + 1
+				packet = io.BytesIO()
+				can = canvas.Canvas(packet)
+				can.setFont('Helvetica', 20)
+				can.drawString(10, 820, "#" + str(index) + ": " + C + " (" + QA[C]+")")
+				can.drawString(250, 20, str(pp))
+				#add two black rectangles on the two sides for quick indexing
+				can.rect(0,800-40*index10-40,5,40,fill=1,stroke=1)
+				can.rect(590,800-40*index10-40,5,40,fill=1,stroke=1)
+				can.save()
+				packet.seek(0)
+				new_pdf = PdfFileReader(packet)
 				page = existing_pdf.getPage(i)
 				# add the "watermark" (which is the new pdf) on the existing page
 				page.mergePage(new_pdf.getPage(0))

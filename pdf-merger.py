@@ -10,7 +10,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
 QA = {}
-LookupTables = ["PDF-all"]
+LookupTables = ["PDF-all", 
+  "ChangLiao", "Chen", "Cheng", "Chou", "Fan", "Huang", "Kao", "Lai", "Lee", "LinYiChin", "LinYiHua","WangWanYu", "WanMeiLing", "Wu",
+  "acc", "biobank", "biotrec", "daais", "dga", "dia", "hro", "iptt", "its", "sec", "southcampus"]
 
 def lookup_table(fname):
 	try:

@@ -10,6 +10,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
 QA = {}
+LookupTables = ["PDF-all"]
 
 def lookup_table(fname):
 	try:
@@ -131,11 +132,10 @@ if __name__ == "__main__":
 				help="folder to store Questions, default= ./PDF/")
 	parser.add_argument("-A", "--A_Folder", dest="a_folder", default="./PDF/",
 				help="folder to store Answers, default= ./PDF/")
-	parser.add_argument("-o", "--output", dest="output_filename", default="output.pdf",
-				help="write merged PDF to FILE, default=output.pdf", metavar="FILE")
-	parser.add_argument("input_filename", help="the lookup table to merge PDF files")
 
 	args = parser.parse_args()
 
-	lookup_table(args.input_filename)
-	merge_QA(args.output_filename, args.q_folder, args.a_folder)
+	for lookup in LookupTables:
+		QA.clear()
+		lookup_table(lookup + ".csv")
+		merge_QA(lookup+".pdf", args.q_folder, args.a_folder)

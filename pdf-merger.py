@@ -38,7 +38,7 @@ def merge_QA(output_file, q_folder, a_folder):
 		index10 = ((index-1) // 10) % 10
 
 		str_FILE_Q = q_folder+"/"+C+"-Q.pdf"
-		str_FILE_Q = q_folder+"/"+QA[C]+"-Q.pdf"
+		#str_FILE_Q = q_folder+"/"+QA[C]+"-Q.pdf"
 		str_FILE_A = a_folder+"/"+QA[C]+"-A.pdf"
 		str_TMP_Q = "/tmp/"+C+"-Q.pdf"
 		str_TMP_A = "/tmp/"+C+"-A.pdf"
@@ -56,11 +56,11 @@ def merge_QA(output_file, q_folder, a_folder):
 				packet = io.BytesIO()
 				can = canvas.Canvas(packet)
 				can.setFont('Helvetica', 20)
-				can.drawString(10, 820, "#" + str(index) + ": " + C + " (" + QA[C]+")")
+				can.drawString(15, 800, "#" + str(index) + ": " + C + " (" + QA[C]+")")
 				can.drawString(250, 20, str(pp))
 				#add two black rectangles on the two sides for quick indexing
-				can.rect(0,800-40*index10-40,5,40,fill=1,stroke=1)
-				can.rect(590,800-40*index10-40,5,40,fill=1,stroke=1)
+				can.rect(0,700-40*index10-40,20,40,fill=1,stroke=1)
+				can.rect(575,700-40*index10-40,20,40,fill=1,stroke=1)
 				can.save()
 				packet.seek(0)
 				new_pdf = PdfFileReader(packet)
@@ -92,11 +92,11 @@ def merge_QA(output_file, q_folder, a_folder):
 				packet = io.BytesIO()
 				can = canvas.Canvas(packet)
 				can.setFont('Helvetica', 20)
-				can.drawString(10, 820, "#" + str(index) + ": " + C + " (" + QA[C]+")")
+				can.drawString(15, 800, "#" + str(index) + ": " + C + " (" + QA[C]+")")
 				can.drawString(250, 20, str(pp))
 				#add two black rectangles on the two sides for quick indexing
-				can.rect(0,800-40*index10-40,5,40,fill=1,stroke=1)
-				can.rect(590,800-40*index10-40,5,40,fill=1,stroke=1)
+				can.rect(0,700-40*index10-40,20,40,fill=1,stroke=1)
+				can.rect(575,700-40*index10-40,20,40,fill=1,stroke=1)
 				can.save()
 				packet.seek(0)
 				new_pdf = PdfFileReader(packet)

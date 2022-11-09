@@ -30,23 +30,29 @@ def merge_QA(output_file, q_folder, a_folder):
 
 	output = PdfFileWriter()
 	output.addBlankPage(width=595, height=842)
-	output.write(open("/tmp/blank.pdf", 'wb'))
+
+	pdf_path = os.path.join(os.getcwd(), "tmp", "blank.pdf")
+	dirname = os.path.dirname(pdf_path)
+	if not os.path.exists(dirname):
+		os.makedirs(dirname)
+
+	output.write(open(pdf_path, 'wb'))
 
 	index = 0
 	for C in QA:
 		index = index + 1
 		index10 = ((index-1) // 10) % 10
 
-		str_FILE_Q = q_folder+"/"+C+"-Q.pdf"
+		str_FILE_Q = os.path.join(os.getcwd(),q_folder, C+"-Q.pdf")
 		#str_FILE_Q = q_folder+"/"+QA[C]+"-Q.pdf"
-		str_FILE_A = a_folder+"/"+QA[C]+"-A.pdf"
-		str_TMP_Q = "/tmp/"+C+"-Q.pdf"
-		str_TMP_A = "/tmp/"+C+"-A.pdf"
+		str_FILE_A = os.path.join(os.getcwd(),a_folder, QA[C]+"-A.pdf")
+		str_TMP_Q = os.path.join(os.getcwd(),"tmp", C+"-Q.pdf")
+		str_TMP_A = os.path.join(os.getcwd(),"tmp", C+"-A.pdf")
 
 		if p%2==0:
 			p = p + 1
 			pp = pp + 1
-			merger.append("/tmp/blank.pdf")
+			merger.append(pdf_path)
 
 		if os.path.isfile(str_FILE_Q):
 			existing_pdf = PdfFileReader(open(str_FILE_Q, "rb"))
@@ -119,8 +125,10 @@ def merge_QA(output_file, q_folder, a_folder):
 		else:
 			print("Error - file missing: ", str_FILE_A)
 
-
-
+	output_dir = os.path.join(os.getcwd(), output_file)
+	output_dirname = os.path.dirname(output_dir)
+	if not os.path.exists(output_dirname):
+		os.makedirs(output_dirname)
 	merger.write(output_file)
 	merger.close()
 
@@ -130,10 +138,10 @@ if __name__ == "__main__":
 	parser = ArgumentParser()
 
 	# Add more options if you like
-	parser.add_argument("-Q", "--Q_Folder", dest="q_folder", default="./PDF/",
-				help="folder to store Questions, default= ./PDF/")
-	parser.add_argument("-A", "--A_Folder", dest="a_folder", default="./PDF/",
-				help="folder to store Answers, default= ./PDF/")
+	parser.add_argument("-Q", "--Q_Folder", dest="q_folder", default="PDF",
+				help="folder to store Questions, default= PDF")
+	parser.add_argument("-A", "--A_Folder", dest="a_folder", default="PDF",
+				help="folder to store Answers, default= PDF")
 
 	args = parser.parse_args()
 

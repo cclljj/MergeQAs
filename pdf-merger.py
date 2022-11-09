@@ -11,8 +11,9 @@ from reportlab.lib.pagesizes import letter
 
 QA = {}
 LookupTables = ["PDF-all", 
-  "ChangLiao", "Chen", "Cheng", "Chou", "Fan", "Huang", "Kao", "Lai", "Lee", "LinYiChin", "LinYiHua","WangWanYu", "WanMeiLing", "Wu",
-  "acc", "biobank", "biotrec", "daais", "dga", "dia", "hro", "iptt", "its", "sec", "southcampus"]
+#   "ChangLiao", "Chen", "Cheng", "Chou", "Fan", "Huang", "Kao", "Lai", "Lee", "LinYiChin", "LinYiHua","WangWanYu", "WanMeiLing", "Wu",
+#   "acc", "biobank", "biotrec", "daais", "dga", "dia", "hro", "iptt", "its", "sec", "southcampus"
+]
 
 def lookup_table(fname):
 	try:
@@ -31,12 +32,12 @@ def merge_QA(output_file, q_folder, a_folder):
 	output = PdfFileWriter()
 	output.addBlankPage(width=595, height=842)
 
-	pdf_path = os.path.join(os.getcwd(), "tmp", "blank.pdf")
-	dirname = os.path.dirname(pdf_path)
+	blank_pdf_path = os.path.join(os.getcwd(), "tmp", "blank.pdf")
+	dirname = os.path.dirname(blank_pdf_path)
 	if not os.path.exists(dirname):
 		os.makedirs(dirname)
 
-	output.write(open(pdf_path, 'wb'))
+	output.write(open(blank_pdf_path, 'wb'))
 
 	index = 0
 	for C in QA:
@@ -52,7 +53,7 @@ def merge_QA(output_file, q_folder, a_folder):
 		if p%2==0:
 			p = p + 1
 			pp = pp + 1
-			merger.append(pdf_path)
+			merger.append(blank_pdf_path)
 
 		if os.path.isfile(str_FILE_Q):
 			existing_pdf = PdfFileReader(open(str_FILE_Q, "rb"))
@@ -129,6 +130,7 @@ def merge_QA(output_file, q_folder, a_folder):
 	output_dirname = os.path.dirname(output_dir)
 	if not os.path.exists(output_dirname):
 		os.makedirs(output_dirname)
+
 	merger.write(output_file)
 	merger.close()
 

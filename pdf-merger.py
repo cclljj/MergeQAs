@@ -4,6 +4,7 @@
 import re
 import io
 import os
+import shutil
 from argparse import ArgumentParser
 from PyPDF2 import PdfFileReader, PdfFileWriter, PdfFileMerger
 from reportlab.pdfgen import canvas
@@ -151,3 +152,6 @@ if __name__ == "__main__":
 		QA.clear()
 		lookup_table("input/" + lookup + ".csv")
 		merge_QA("output/" +lookup+".pdf", args.q_folder, args.a_folder)
+
+	# Delete tmp directory
+	shutil.rmtree(os.path.join(os.getcwd(), "tmp"))

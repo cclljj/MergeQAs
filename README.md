@@ -22,9 +22,9 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -Q Q_FOLDER, --Q_Folder Q_FOLDER
-                        folder to store Questions, default= ./PDF-Q/
+                        folder to store Questions, default= PDF
   -A A_FOLDER, --A_Folder A_FOLDER
-                        folder to store Answers, default= ./PDF-A/
+                        folder to store Answers, default= PDF
   -o FILE, --output FILE
                         write merged PDF to FILE, default=output.pdf
 ```

@@ -25,7 +25,7 @@ def lookup_table(fname):
 	except IOError:
 		print("Could not read file:", fname)
 
-def merge_QA(output_file, q_folder, a_folder):
+def merge_QA(output_file, q_folder, a_folder, print_pp = True):
 	p = 0
 	pp = 0
 	merger = PdfFileMerger(strict=False)
@@ -65,7 +65,8 @@ def merge_QA(output_file, q_folder, a_folder):
 				can = canvas.Canvas(packet)
 				can.setFont('Helvetica', 20)
 				can.drawString(15, 800, "#" + str(index) + ": " + C + " (" + QA[C]+")")
-				can.drawString(250, 20, str(pp))
+				if print_pp:
+					can.drawString(250, 20, str(pp))
 				#add two black rectangles on the two sides for quick indexing
 				can.rect(0,700-40*index10-40,20,40,fill=1,stroke=1)
 				can.rect(575,700-40*index10-40,20,40,fill=1,stroke=1)
@@ -101,7 +102,8 @@ def merge_QA(output_file, q_folder, a_folder):
 				can = canvas.Canvas(packet)
 				can.setFont('Helvetica', 20)
 				can.drawString(15, 800, "#" + str(index) + ": " + C + " (" + QA[C]+")")
-				can.drawString(250, 20, str(pp))
+				if print_pp:
+					can.drawString(250, 20, str(pp))
 				#add two black rectangles on the two sides for quick indexing
 				can.rect(0,700-40*index10-40,20,40,fill=1,stroke=1)
 				can.rect(575,700-40*index10-40,20,40,fill=1,stroke=1)
@@ -145,13 +147,15 @@ if __name__ == "__main__":
 				help="folder to store Questions, default= PDF")
 	parser.add_argument("-A", "--A_Folder", dest="a_folder", default="PDF",
 				help="folder to store Answers, default= PDF")
+	parser.add_argument("-NP", "--No_Page_Number", dest="no_pp", action="store_true",
+				help="do not print page number")
 
 	args = parser.parse_args()
 
 	for lookup in LookupTables:
 		QA.clear()
 		lookup_table("input/" + lookup + ".csv")
-		merge_QA("output/" +lookup+".pdf", args.q_folder, args.a_folder)
+		merge_QA("output/" +lookup+".pdf", args.q_folder, args.a_folder, print_pp = not args.no_pp)
 
 	# Delete tmp directory
 	shutil.rmtree(os.path.join(os.getcwd(), "tmp"))

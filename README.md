@@ -25,6 +25,6 @@ optional arguments:
                         folder to store Questions, default= PDF
   -A A_FOLDER, --A_Folder A_FOLDER
                         folder to store Answers, default= PDF
-  -o FILE, --output FILE
-                        write merged PDF to FILE, default=output.pdf
+  -NP, --No_Page_Number
+                        do not print page number
 ```

@@ -14,7 +14,7 @@ sudo pip3 install PyPDF2 reportlab
 The usage of the program is described as follows.
 
 ```
-usage: pdf-merger.py [-h] [-Q Q_FOLDER] [-A A_FOLDER] [-o FILE] input_filename
+usage: pdf-merger.py [-h] [-Q Q_FOLDER] [-A A_FOLDER]
 
 positional arguments:
   input_filename        the lookup table to merge PDF files
